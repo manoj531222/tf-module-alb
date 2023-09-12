@@ -3,7 +3,6 @@ resource "aws_security_group" "sg" {
   description = "${var.name}-alb-${var.env}-sg"
   vpc_id      = var.vpc_id
 
-
   ingress {
     description = "HTTP"
     from_port   = 80
@@ -29,8 +28,7 @@ resource "aws_lb" "main" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.sg.id]
   subnets            = var.subnets
-
-  tags = merge(var.tags, { Name = "${var.name}-alb-${var.env}" })
+  tags               = merge(var.tags, { Name = "${var.name}-alb-${var.env}" })
 }
 
 resource "aws_lb_listener" "main" {
